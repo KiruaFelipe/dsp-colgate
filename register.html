@@ -1,168 +1,436 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cadastro - Colgate Futuro Profissional</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --brand:#E2231A; --brand-dark:#B51C15;
-      --txt:#111827; --muted:#6b7280; --card:#ffffff; --bg:#f7f7f8; --stroke:#e5e7eb;
-      --ok:#16a34a; --err:#dc2626; --radius:18px;
-    }
-    *{box-sizing:border-box} html,body{height:100%}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--txt);background:var(--bg)}
-    .wrap{min-height:100%;display:grid;grid-template-rows:auto 1fr auto}
-    header{background:var(--brand);color:#fff;padding:14px 18px}
-    .head-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:16px;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:120px;height:32px;object-fit:contain}
-    .title{font-weight:700}
-    .code-pill{background:#fff;color:var(--txt);border:1px solid #ffffff66;padding:8px 12px;border-radius:999px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,.08)}
-    main{max-width:1080px;margin:28px auto;padding:0 18px}
-    .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px}
-    @media (max-width:940px){.grid{grid-template-columns:1fr}}
-    .card{border:1px solid var(--stroke);background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:0 8px 30px rgba(0,0,0,.06)}
-    h2{margin:0 0 12px;font-size:22px}.muted{color:var(--muted)}
-    .event{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
-    .dot{width:10px;height:10px;border-radius:50%;background:var(--brand)}
-    form{display:grid;gap:14px;margin-top:10px}.field{display:grid;gap:8px}
-    label{font-weight:600;font-size:13px;color:#374151}
-    input,select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--stroke);background:#fff;color:var(--txt);outline:none;transition:border .15s,box-shadow .15s}
-    input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(226,35,26,.15)}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .btn{padding:12px 16px;border-radius:12px;cursor:pointer;border:0;background:var(--brand);color:#fff;font-weight:700;letter-spacing:.2px}
-    .btn:hover{filter:brightness(1.05)} .btn:active{transform:translateY(1px)}
-    .btn-ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
-    .qrbox{display:grid;place-items:center;gap:12px;padding:18px;border-radius:14px;border:1px dashed var(--stroke);background:#fafafa;min-height:320px}
-    .status{margin-top:6px;font-size:14px}.ok{color:var(--ok)} .err{color:var(--err)}
-    footer{padding:22px 18px;text-align:center;color:var(--muted);font-size:12px}
-    .badge{padding:6px 10px;border:1px solid var(--stroke);border-radius:999px;color:#374151}
-    .note{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
-    .home-tip{font-size:12px}
-    .pill-mini{background:#fff2; border:1px solid #ffffff44; padding:6px 10px; border-radius:999px; font-size:12px}
-    .hdr-right{display:flex; align-items:center; gap:10px}
-    .card.form-card {
-      position: relative;
-      overflow: hidden;
-      background: var(--card);
-    }
-    .card.form-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url('./logo.jpg') no-repeat center center; 
-      background-size: 60%;
-      opacity: 0.08;               
-      pointer-events: none;
-      z-index: 0;
-    }
-    .card.form-card > * {
-      position: relative;
-      z-index: 1;
-    }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header>
-      <div class="head-inner">
-        <div class="brand">
-          <img src="logo.jpg" alt="Logo" class="logo" onerror="this.style.display='none'">
-          <div class="title">Check-in de Palestra</div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cadastro - Colgate Futuro Profissional</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --brand: #e2231a;
+        --brand-dark: #b51c15;
+        --txt: #111827;
+        --muted: #6b7280;
+        --card: #ffffff;
+        --bg: #f7f7f8;
+        --stroke: #e5e7eb;
+        --ok: #16a34a;
+        --err: #dc2626;
+        --radius: 18px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        color: var(--txt);
+        background: var(--bg);
+      }
+      .wrap {
+        min-height: 100%;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+      }
+      header {
+        background: var(--brand);
+        color: #fff;
+        padding: 14px 18px;
+      }
+      .head-inner {
+        max-width: 1040px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        justify-content: space-between;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .logo {
+        width: 70px;
+      }
+      .title {
+        font-weight: 700;
+      }
+      .code-pill {
+        background: #fff;
+        color: var(--txt);
+        border: 1px solid #ffffff66;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 600;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      }
+      main {
+        max-width: 1080px;
+        margin: 28px auto;
+        padding: 0 18px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 20px;
+      }
+      @media (max-width: 940px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .card {
+        border: 1px solid var(--stroke);
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 22px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: 22px;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .event {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 6px 0 14px;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--brand);
+      }
+      form {
+        display: grid;
+        gap: 14px;
+        margin-top: 10px;
+      }
+      .field {
+        display: grid;
+        gap: 8px;
+      }
+      label {
+        font-weight: 600;
+        font-size: 13px;
+        color: #374151;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid var(--stroke);
+        background: #fff;
+        color: var(--txt);
+        outline: none;
+        transition: border 0.15s, box-shadow 0.15s;
+      }
+      input:focus,
+      select:focus {
+        border-color: var(--brand);
+        box-shadow: 0 0 0 3px rgba(226, 35, 26, 0.15);
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .btn {
+        padding: 12px 16px;
+        border-radius: 12px;
+        cursor: pointer;
+        border: 0;
+        background: var(--brand);
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+      .btn:hover {
+        filter: brightness(1.05);
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .btn-ghost {
+        background: #fff;
+        color: var(--brand);
+        border: 1px solid var(--brand);
+      }
+      .qrbox {
+        display: grid;
+        place-items: center;
+        gap: 12px;
+        padding: 18px;
+        border-radius: 14px;
+        border: 1px dashed var(--stroke);
+        background: #fafafa;
+        min-height: 320px;
+      }
+      .status {
+        margin-top: 6px;
+        font-size: 14px;
+      }
+      .ok {
+        color: var(--ok);
+      }
+      .err {
+        color: var(--err);
+      }
+      footer {
+        padding: 22px 18px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .badge {
+        padding: 6px 10px;
+        border: 1px solid var(--stroke);
+        border-radius: 999px;
+        color: #374151;
+      }
+      .note {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+      .home-tip {
+        font-size: 12px;
+      }
+      .pill-mini {
+        background: #fff2;
+        border: 1px solid #ffffff44;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+      }
+      .hdr-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .card.form-card {
+        position: relative;
+        overflow: hidden;
+        background: var(--card);
+      }
+      .card.form-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("./logo.jpg") no-repeat center center;
+        background-size: 60%;
+        opacity: 0.08;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .card.form-card > * {
+        position: relative;
+        z-index: 1;
+      }
+      .backgroud-logo {
+        width: 70px;
+        height: 70px;
+        background-color: #fff;
+        border-radius: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="head-inner">
+          <div class="brand">
+            <div class="backgroud-logo">
+              <img
+                src="new-logo.png"
+                alt="Logo"
+                class="logo"
+                onerror="this.style.display='none'"
+              />
+            </div>
+            <div class="title">Check-in de Palestra</div>
+          </div>
+          <div class="hdr-right">
+            <div
+              id="universidadePill"
+              class="pill-mini"
+              style="display: none"
+            ></div>
+            <div id="pill" class="code-pill">Código: —</div>
+          </div>
         </div>
-        <div class="hdr-right">
-          <div id="universidadePill" class="pill-mini" style="display:none"></div>
-          <div id="pill" class="code-pill">Código: —</div>
+      </header>
+
+      <main>
+        <div class="grid">
+          <section class="card form-card">
+            <h2>Cadastro do Inscrito</h2>
+            <div class="event">
+              <div class="dot"></div>
+              <div>
+                <div class="muted" id="eventTitle">Carregando…</div>
+                <div
+                  class="muted"
+                  id="eventUniversity"
+                  style="font-size: 12px"
+                ></div>
+                <div class="muted" id="eventDate" style="font-size: 12px"></div>
+              </div>
+            </div>
+            <form id="form">
+              <div class="field">
+                <label for="nome">Nome completo</label>
+                <input
+                  id="nome"
+                  autocomplete="name"
+                  placeholder="Ex.: Maria de Souza"
+                  required
+                />
+              </div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="email">E-mail</label>
+                  <input
+                    id="email"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="voce@email.com"
+                    required
+                  />
+                </div>
+
+                <div class="field">
+                  <label for="perfil">Perfil</label>
+                  <select id="perfil" required>
+                    <option value="">Selecione…</option>
+                    <option>Aluno (a)</option>
+                    <option>Professor (a)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="semestre">Semestre</label>
+                  <select id="semestre" required></select>
+                </div>
+
+                <div class="field">
+                  <label for="periodo">Período</label>
+                  <select id="periodo" required>
+                    <option value="">Selecione…</option>
+                    <option>Manhã</option>
+                    <option>Tarde</option>
+                    <option>Noite</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="anoFormatura"
+                  >Ano que irá se formar/Se formou</label
+                >
+                <input
+                  id="anoFormatura"
+                  inputmode="numeric"
+                  pattern="\d{4}"
+                  maxlength="4"
+                  placeholder="Ex.: 2027"
+                  required
+                />
+              </div>
+
+              <div class="field" id="complianceField">
+                <label
+                  style="
+                    color: var(--txt);
+                    font-size: 13px;
+                    font-weight: 600;
+                    cursor: pointer;
+                  "
+                >
+                  <input
+                    type="checkbox"
+                    id="aceiteCompliance"
+                    style="
+                      width: 18px;
+                      height: 18px;
+                      vertical-align: middle;
+                      margin-right: 8px;
+                      accent-color: var(--brand);
+                    "
+                    required
+                  />
+                  Autorizo o uso dos meus dados apenas para fins de registro
+                  nesta palestra.
+                </label>
+                <span
+                  style="color: var(--muted); font-size: 12px; font-weight: 400"
+                >
+                  O e-mail informado será utilizado somente para identificar seu
+                  cadastro e gerar o comprovante de participação, não sendo
+                  compartilhado, divulgado ou utilizado para qualquer outra
+                  finalidade.
+                </span>
+              </div>
+
+              <div class="row">
+                <button id="btnSubmit" class="btn" type="submit">
+                  Gerar QRCode
+                </button>
+                <button class="btn btn-ghost" type="button" id="btnLimpar">
+                  Limpar
+                </button>
+              </div>
+              <div id="msg" class="status"></div>
+            </form>
+          </section>
+
+          <section class="card">
+            <h2>Seu QRCode</h2>
+            <div id="qrbox" class="qrbox">
+              <div class="muted" style="text-align: center">
+                Gere o QR preenchendo o formulário ao lado.<br />
+                <small>O QR inclui: <b>email|codigo</b>.</small>
+              </div>
+            </div>
+            <div style="margin-top: 12px">
+              <button
+                class="btn"
+                id="btnBaixar"
+                type="button"
+                disabled
+                style="width: 100%"
+              >
+                Baixar imagem
+              </button>
+            </div>
+          </section>
         </div>
-      </div>
-    </header>
+      </main>
 
-    <main>
-      <div class="grid">
-        <section class="card form-card">
-          <h2>Cadastro do Inscrito</h2>
-          <div class="event">
-            <div class="dot"></div>
-            <div>
-              <div class="muted" id="eventTitle">Carregando…</div>
-              <div class="muted" id="eventUniversity" style="font-size:12px"></div>
-              <div class="muted" id="eventDate" style="font-size:12px"></div>
-            </div>
-          </div>
-          <form id="form">
-            <div class="field">
-              <label for="nome">Nome completo</label>
-              <input id="nome" autocomplete="name" placeholder="Ex.: Maria de Souza" required />
-            </div>
+      <footer>© Colgate — Futuro Profissional</footer>
+    </div>
 
-            <div class="row">
-              <div class="field">
-                <label for="email">E-mail</label>
-                <input id="email" type="email" autocomplete="email" placeholder="voce@email.com" required />
-              </div>
-
-              <div class="field">
-                <label for="perfil">Perfil</label>
-                <select id="perfil" required>
-                  <option value="">Selecione…</option>
-                  <option>Aluno (a)</option>
-                  <option>Professor (a)</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="field">
-                <label for="semestre">Semestre</label>
-                <select id="semestre" required></select>
-              </div>
-
-              <div class="field">
-                <label for="periodo">Período</label>
-                <select id="periodo" required>
-                  <option value="">Selecione…</option>
-                  <option>Manhã</option>
-                  <option>Tarde</option>
-                  <option>Noite</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="anoFormatura">Ano que irá se formar/Se formou</label>
-              <input id="anoFormatura" inputmode="numeric" pattern="\d{4}" maxlength="4" placeholder="Ex.: 2027" required />
-            </div>
-
-            <div class="row">
-              <button id="btnSubmit" class="btn" type="submit">Gerar QRCode</button>
-              <button class="btn btn-ghost" type="button" id="btnLimpar">Limpar</button>
-            </div>
-            <div id="msg" class="status"></div>
-          </form>
-        </section>
-
-        <section class="card">
-          <h2>Seu QRCode</h2>
-          <div id="qrbox" class="qrbox">
-            <div class="muted" style="text-align:center">
-              Gere o QR preenchendo o formulário ao lado.<br/>
-              <small>O QR inclui: <b>email|codigo</b>.</small>
-            </div>
-          </div>
-          <div style="margin-top:12px">
-            <button class="btn" id="btnBaixar" type="button" disabled style="width:100%">Baixar imagem</button>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <footer>© Colgate — Futuro Profissional</footer>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-  <script src="registerScript.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="registerScript.js"></script>
+  </body>
 </html>

@@ -1,6 +1,7 @@
 // registerScript.js
 // 🔗 SUA URL /exec do Apps Script
-const API = "https://script.google.com/macros/s/AKfycbzwGBCcZSqWVMXuPYYnH6sa77Uz12oWRipXfdUD-if5HCBiaiBGZ2FIfRMxayYYYXoiEA/exec";
+const API =
+  "https://script.google.com/macros/s/AKfycbzwGBCcZSqWVMXuPYYnH6sa77Uz12oWRipXfdUD-if5HCBiaiBGZ2FIfRMxayYYYXoiEA/exec";
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Seletores / estado
@@ -65,7 +66,8 @@ async function carregarPalestra() {
 
     const p = res.palestra || {};
     // Título
-    eventTitle.textContent = p.descricao || p.DESCRICAO || p.CodigoPalestra || "Palestra";
+    eventTitle.textContent =
+      p.descricao || p.DESCRICAO || p.CodigoPalestra || "Palestra";
 
     // UNIVERSIDADE: UFPR
     const uni = p.Universidade || p.UNIVERSIDADE || "";
@@ -78,16 +80,21 @@ async function carregarPalestra() {
     eventDate.textContent = horarioLinha ? `Horario: ${horarioLinha}` : "";
 
     // Ativo (se não houver coluna, assume true)
-    const ativo = (typeof p.ativo === "boolean")
-      ? p.ativo
-      : (p.ATIVO != null ? String(p.ATIVO).toLowerCase() === "true" : true);
+    const ativo =
+      typeof p.ativo === "boolean"
+        ? p.ativo
+        : p.ATIVO != null
+        ? String(p.ATIVO).toLowerCase() === "true"
+        : true;
 
     if (!ativo) {
       btnSubmit.disabled = true;
-      msg.innerHTML = '<span class="err">Palestra inativa — geração de QR bloqueada.</span>';
+      msg.innerHTML =
+        '<span class="err">Palestra inativa — geração de QR bloqueada.</span>';
     } else {
       btnSubmit.disabled = false;
-      msg.innerHTML = '<span class="ok">Palestra ativa — pode gerar o QR.</span>';
+      msg.innerHTML =
+        '<span class="ok">Palestra ativa — pode gerar o QR.</span>';
     }
   } catch (e) {
     console.error(e);
@@ -108,18 +115,41 @@ form.addEventListener("submit", async (ev) => {
   const perfil = document.getElementById("perfil").value;
   const semestre = document.getElementById("semestre").value;
   const anoFormatura = document.getElementById("anoFormatura").value.trim();
+  const aceiteCompliance = document.getElementById("aceiteCompliance").checked;
 
   // Extrai textos mostrados (sem parse)
-  const universidade = (eventUniversity.textContent || "").replace(/^UNIVERSIDADE:\s*/i, "");
-  const horarioTexto = (eventDate.textContent || "").replace(/^Horario:\s*/i, "");
+  const universidade = (eventUniversity.textContent || "").replace(
+    /^UNIVERSIDADE:\s*/i,
+    ""
+  );
+  const horarioTexto = (eventDate.textContent || "").replace(
+    /^Horario:\s*/i,
+    ""
+  );
   const [dataPalestra, horaPalestra] = horarioTexto.split(" ");
 
-  if (!email || !codigo || !nome || !periodo || !perfil || !semestre || !anoFormatura) {
+  if (
+    !email ||
+    !codigo ||
+    !nome ||
+    !periodo ||
+    !perfil ||
+    !semestre ||
+    !anoFormatura ||
+    !aceiteCompliance
+  ) {
     msg.innerHTML = '<span class="err">Preencha todos os campos.</span>';
     return;
   }
   if (!/^\d{4}$/.test(anoFormatura)) {
-    msg.innerHTML = '<span class="err">Informe um ano válido com 4 dígitos (ex.: 2027).</span>';
+    msg.innerHTML =
+      '<span class="err">Informe um ano válido com 4 dígitos (ex.: 2027).</span>';
+    return;
+  }
+
+  if (!aceiteCompliance) {
+    msg.innerHTML =
+      '<span class="err">É necessário autorizar o uso dos dados para prosseguir.</span>';
     return;
   }
 
@@ -137,18 +167,21 @@ form.addEventListener("submit", async (ev) => {
       Semestre: semestre,
       AnoFormatura: anoFormatura,
       Data: dataPalestra || "",
-      Horario: horaPalestra || ""
+      Horario: horaPalestra || "",
+      compilance: aceiteCompliance
     }).toString();
 
     const resp = await fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body
+      body,
     });
     const data = await resp.json();
 
     if (!data.ok) {
-      msg.innerHTML = `<span class="err">${data.error || "Erro ao registrar"}</span>`;
+      msg.innerHTML = `<span class="err">${
+        data.error || "Erro ao registrar"
+      }</span>`;
       return;
     }
 
@@ -162,7 +195,7 @@ form.addEventListener("submit", async (ev) => {
       text: conteudo,
       width: 250,
       height: 250,
-      correctLevel: QRCode.CorrectLevel.M
+      correctLevel: QRCode.CorrectLevel.M,
     });
 
     setTimeout(() => {
@@ -170,12 +203,14 @@ form.addEventListener("submit", async (ev) => {
       lastPNG = img ? img.src : null;
       btnBaixar.disabled = !lastPNG;
       //btnNovo.disabled = false;
-      const statusTxt = data.status === "existente" ? " (já cadastrado)" : " (novo)";
+      const statusTxt =
+        data.status === "existente" ? " (já cadastrado)" : " (novo)";
       msg.innerHTML = `<span class="ok">QR gerado${statusTxt}: <b>${conteudo}</b></span>`;
     }, 150);
   } catch (e) {
     console.error(e);
-    msg.innerHTML = '<span class="err">Erro ao registrar. Tente novamente.</span>';
+    msg.innerHTML =
+      '<span class="err">Erro ao registrar. Tente novamente.</span>';
   }
 });
 
