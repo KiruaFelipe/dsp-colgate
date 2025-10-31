@@ -34,6 +34,12 @@ function preencherSemestres() {
   opt0.value = "";
   opt0.textContent = "Selecione…";
   frag.appendChild(opt0);
+
+  const optNA = document.createElement("option");
+  optNA.value = "N/A";
+  optNA.textContent = "Não se aplica";
+  frag.appendChild(optNA);
+
   for (let i = 1; i <= 12; i++) {
     const opt = document.createElement("option");
     opt.value = `${i}º`;
